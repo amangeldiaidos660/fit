@@ -27,3 +27,23 @@ def register_user(request):
             return JsonResponse({'message': f'Error: {str(e)}', 'status': 'error'}, status=500)
 
     return JsonResponse({'message': 'Invalid request method', 'status': 'error'}, status=405)
+
+
+@csrf_protect
+def login_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(email=email)
+            hashed_password = hashlib.sha256(password.encode()).hexdigest()
+
+            if user.password == hashed_password:
+                return JsonResponse({'status': 'success', 'message': 'Login successful', 'user_id': user.id})
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Invalid credentials'})
+        except User.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'User not found'})
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})

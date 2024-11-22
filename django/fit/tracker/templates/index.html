@@ -30,7 +30,7 @@
     <div class="tab-content" id="authTabContent">
         <!-- Форма входа -->
         <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-            <form method="POST" action="/login/">
+            <form id="loginForm">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="loginEmail">Email</label>

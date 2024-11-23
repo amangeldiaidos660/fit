@@ -3,6 +3,8 @@ from config import BOT_TOKEN
 from handlers import start, handle_menu_command, handle_voice_message
 from progress import handle_progress_buttons
 
+
+
 bot = telebot.TeleBot(BOT_TOKEN)
 
 

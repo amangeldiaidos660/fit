@@ -12,3 +12,5 @@ def connect_to_db():
 
 
 BOT_TOKEN = "7777000113:AAHZ-irduLYqc9sK8LwT5eULFrKgTfFpXOI"
+
+

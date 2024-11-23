@@ -1,3 +1,9 @@
 pyTelegramBotAPI
 django
 psycopg2
+openai-whisper
+torch
+torchaudio
+matplotlib
+pydub
+word2number

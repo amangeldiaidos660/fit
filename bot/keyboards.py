@@ -1,5 +1,9 @@
 from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 
-main_keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-main_keyboard.add(KeyboardButton("Войти"), KeyboardButton("Записать тренировку"))
-main_keyboard.add(KeyboardButton("Мой прогресс"))
+def get_main_keyboard(authenticated=False):
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+    if authenticated:
+        keyboard.add(KeyboardButton("Выйти"))
+    else:
+        keyboard.add(KeyboardButton("Войти"))
+    return keyboard

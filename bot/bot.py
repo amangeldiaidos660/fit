@@ -1,12 +1,9 @@
-import telebot
+from telebot import TeleBot
 from config import BOT_TOKEN
-from handlers import start, handle_menu_command, handle_voice_message
+from handlers import start, handle_menu_command, handle_voice_message, handle_text_message, handle_save_or_cancel
 from progress import handle_progress_buttons
 
-
-
-bot = telebot.TeleBot(BOT_TOKEN)
-
+bot = TeleBot(BOT_TOKEN)
 
 @bot.message_handler(commands=["start"])
 def start_command(message):
@@ -14,7 +11,12 @@ def start_command(message):
 
 @bot.message_handler(content_types=["text"])
 def text_command_handler(message):
-    handle_menu_command(bot, message)
+    if message.text in ["Войти", "Выйти"]:
+        handle_menu_command(bot, message)
+    elif message.text in ["Сохранить", "Отмена"]:
+        handle_save_or_cancel(bot, message)
+    else:
+        handle_text_message(bot, message)
 
 @bot.message_handler(content_types=["voice"])
 def voice_command_handler(message):

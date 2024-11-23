@@ -9,3 +9,20 @@ class User(models.Model):
 
     def __str__(self):
         return self.email
+    
+
+class WorkoutType(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+class Record(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='records')
+    workout_data = models.JSONField()
+    workout_date = models.DateField()
+
+    def __str__(self):
+        return f"{self.user.email} - {self.workout_date}"
+

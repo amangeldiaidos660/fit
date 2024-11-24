@@ -1,6 +1,7 @@
 import hashlib
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
+from django.contrib.sessions.models import Session
 from .models import User  
 
 @csrf_protect 
@@ -29,6 +30,8 @@ def register_user(request):
     return JsonResponse({'message': 'Invalid request method', 'status': 'error'}, status=405)
 
 
+
+
 @csrf_protect
 def login_view(request):
     if request.method == 'POST':
@@ -40,6 +43,7 @@ def login_view(request):
             hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
             if user.password == hashed_password:
+                request.session['user_id'] = user.id
                 return JsonResponse({'status': 'success', 'message': 'Login successful', 'user_id': user.id})
             else:
                 return JsonResponse({'status': 'error', 'message': 'Invalid credentials'})
@@ -47,3 +51,4 @@ def login_view(request):
             return JsonResponse({'status': 'error', 'message': 'User not found'})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
